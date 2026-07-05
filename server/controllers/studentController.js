@@ -44,3 +44,31 @@ export const deleteStudent = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+// Dashboard Statistics
+export const getDashboardStats = async (req, res) => {
+  try {
+    const totalStudents = await Student.countDocuments();
+
+    const placedStudents = await Student.countDocuments({
+      placementStatus: "Placed",
+    });
+
+    const notPlacedStudents = await Student.countDocuments({
+      placementStatus: "Not Placed",
+    });
+
+    const placementRate =
+      totalStudents === 0
+        ? 0
+        : ((placedStudents / totalStudents) * 100).toFixed(1);
+
+    res.json({
+      totalStudents,
+      placedStudents,
+      notPlacedStudents,
+      placementRate,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

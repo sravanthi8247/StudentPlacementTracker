@@ -25,3 +25,10 @@ export const deleteStudent = async (id) => {
   const response = await axios.delete(`${API}/${id}`);
   return response.data;
 };
+// Dashboard Statistics
+export const getDashboardStats = async () => {
+  const response = await axios.get(
+    "http://localhost:5000/api/students/dashboard/stats"
+  );
+  return response.data;
+};
