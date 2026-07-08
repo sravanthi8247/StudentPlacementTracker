@@ -1,3 +1,4 @@
+import DashboardNavbar from "../components/layout/DashboardNavbar";
 import StudentForm from "../components/StudentForm";
 import { useEffect, useState } from "react";
 import {getStudents,  deleteStudent,updateStudent,} from "../services/studentService";
@@ -68,6 +69,7 @@ function Students() {
 
   return (
     <div className="students-container">
+      <DashboardNavbar />
       <h1>Student Management</h1>
       <input
         type="text"

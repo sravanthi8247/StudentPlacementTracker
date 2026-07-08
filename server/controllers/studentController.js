@@ -1,4 +1,6 @@
 import Student from "../models/Student.js";
+import Company from "../models/Company.js";
+import Placement from "../models/Placement.js";
 
 // Add Student
 export const addStudent = async (req, res) => {
@@ -57,6 +59,10 @@ export const getDashboardStats = async (req, res) => {
       placementStatus: "Not Placed",
     });
 
+    const totalCompanies = await Company.countDocuments();
+
+    const totalPlacements = await Placement.countDocuments();
+
     const placementRate =
       totalStudents === 0
         ? 0
@@ -66,6 +72,8 @@ export const getDashboardStats = async (req, res) => {
       totalStudents,
       placedStudents,
       notPlacedStudents,
+      totalCompanies,
+      totalPlacements,
       placementRate,
     });
   } catch (error) {

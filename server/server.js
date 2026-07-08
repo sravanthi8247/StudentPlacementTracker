@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import studentRoutes from "./routes/studentRoutes.js";
 import companyRoutes from "./routes/companyRoutes.js";
+import placementRoutes from "./routes/placementRoutes.js";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.get('/api/health', (_req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use("/api/companies", companyRoutes);
+app.use("/api/placements", placementRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

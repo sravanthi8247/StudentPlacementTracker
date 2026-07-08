@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CompanyForm from "../components/CompanyForm";
+import DashboardNavbar from "../components/layout/DashboardNavbar";
 import {
     getCompanies,
     deleteCompany,
@@ -73,6 +74,7 @@ function Companies() {
 
   return (
     <div className="students-container">
+        <DashboardNavbar />
         <h1>Company Management</h1>
         <input
             type="text"

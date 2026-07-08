@@ -1,7 +1,7 @@
+import DashboardNavbar from "../components/layout/DashboardNavbar";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "../components/ui/Button";
-import { clearAuthData, getStoredUser } from "../services/authService";
+import { useNavigate } from "react-router-dom";
+import { getStoredUser } from "../services/authService";
 import { getDashboardStats } from "../services/studentService";
 import "./Dashboard.css";
 
@@ -13,6 +13,8 @@ function Dashboard() {
     totalStudents: 0,
     placedStudents: 0,
     notPlacedStudents: 0,
+    totalCompanies: 0,
+    totalPlacements: 0,
     placementRate: 0,
   });
 
@@ -34,31 +36,16 @@ function Dashboard() {
     fetchStats();
   }, [user, navigate]);
 
-  const handleLogout = () => {
-    clearAuthData();
-    navigate("/login");
-  };
 
   if (!user) return null;
 
   return (
     <div className="dashboard">
-      <header className="dashboard__header">
-        <div className="container dashboard__header-inner">
-          <Link to="/" className="dashboard__logo">
-            <span className="dashboard__logo-icon">SPT</span>
-            Placement Tracker
-          </Link>
-
-          <Button variant="outline" size="sm" onClick={handleLogout}>
-            Logout
-          </Button>
-        </div>
-      </header>
+      <DashboardNavbar />
 
       <main className="dashboard__main">
         <div className="container">
-
+          
           <div className="dashboard__card">
             <h1>Welcome, {user.name}</h1>
 
@@ -117,6 +104,15 @@ function Dashboard() {
             <div className="dashboard__card">
               <h3>Not Placed</h3>
               <h1>{stats.notPlacedStudents}</h1>
+            </div>
+            <div className="dashboard__card">
+              <h3>Total Companies</h3>
+              <h1>{stats.totalCompanies}</h1>
+            </div>
+
+            <div className="dashboard__card">
+              <h3>Total Placements</h3>
+              <h1>{stats.totalPlacements}</h1>
             </div>
 
             <div className="dashboard__card">

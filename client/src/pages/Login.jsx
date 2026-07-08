@@ -60,7 +60,7 @@ function Login() {
 
   return (
     <AuthLayout title="Welcome back" subtitle="Sign in to your account to continue">
-      <form className="auth-form" onSubmit={handleSubmit} noValidate>
+      <form className="auth-form" onSubmit={handleSubmit} noValidate autoComplete="off">
         <Alert type="error" message={errorMessage} />
         <Alert type="success" message={successMessage} />
 
@@ -74,7 +74,7 @@ function Login() {
           placeholder="you@college.edu"
           error={fieldErrors.email}
           required
-          autoComplete="email"
+          autoComplete="off"
         />
 
         <FormInput
@@ -87,7 +87,7 @@ function Login() {
           placeholder="Enter your password"
           error={fieldErrors.password}
           required
-          autoComplete="current-password"
+          autoComplete="off"
         />
 
         <div className="auth-form__submit">
