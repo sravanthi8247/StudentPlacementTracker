@@ -22,7 +22,7 @@ const formatUserResponse = (user) => ({
 });
 
 const validateRegisterInput = (body) => {
-  const { name, email, password, college, branch, year, role } = body;
+  const { name, email, password, college, branch, year, role, adminCode } = body;
   const errors = [];
 
   if (!name?.trim()) errors.push('Name is required');
@@ -48,6 +48,14 @@ const validateRegisterInput = (body) => {
 
   if (role && !['student', 'admin'].includes(role)) {
     errors.push('Role must be either student or admin');
+  }
+
+  if (role === 'admin') {
+    if (!process.env.ADMIN_INVITE_CODE) {
+      errors.push('Admin registration is not configured on this server');
+    } else if (adminCode !== process.env.ADMIN_INVITE_CODE) {
+      errors.push('Invalid admin invite code');
+    }
   }
 
   return errors;

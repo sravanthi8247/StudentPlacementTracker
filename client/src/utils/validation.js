@@ -62,5 +62,9 @@ export const validateRegisterForm = (formData) => {
     errors.confirmPassword = 'Passwords do not match';
   }
 
+  if (formData.role === 'admin' && !formData.adminCode?.trim()) {
+    errors.adminCode = 'Admin invite code is required';
+  }
+
   return errors;
 };

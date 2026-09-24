@@ -17,6 +17,7 @@ const initialFormData = {
   branch: '',
   year: '',
   role: 'student',
+  adminCode: '',
 };
 
 function Register() {
@@ -57,6 +58,7 @@ function Register() {
         branch: formData.branch.trim(),
         year: Number(formData.year),
         role: formData.role,
+        adminCode: formData.role === 'admin' ? formData.adminCode.trim() : undefined,
       });
 
       saveAuthData(response.data.token, response.data.user);
@@ -166,6 +168,19 @@ function Register() {
             <option value="admin">Admin</option>
           </select>
         </FormInput>
+
+        {formData.role === 'admin' && (
+          <FormInput
+            label="Admin Invite Code"
+            id="adminCode"
+            name="adminCode"
+            value={formData.adminCode}
+            onChange={handleChange}
+            placeholder="Enter the admin invite code"
+            error={fieldErrors.adminCode}
+            required
+          />
+        )}
 
         <FormInput
           label="Password"
