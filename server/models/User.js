@@ -30,12 +30,22 @@ const userSchema = new mongoose.Schema(
     },
     branch: {
       type: String,
-      required: [true, 'Branch is required'],
+      required: [
+        function branchRequired() {
+          return this.role !== 'admin';
+        },
+        'Branch is required',
+      ],
       trim: true,
     },
     year: {
       type: Number,
-      required: [true, 'Year is required'],
+      required: [
+        function yearRequired() {
+          return this.role !== 'admin';
+        },
+        'Year is required',
+      ],
       min: [1, 'Year must be between 1 and 4'],
       max: [4, 'Year must be between 1 and 4'],
     },

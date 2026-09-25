@@ -55,8 +55,8 @@ function Register() {
         email: formData.email.trim(),
         password: formData.password,
         college: formData.college.trim(),
-        branch: formData.branch.trim(),
-        year: Number(formData.year),
+        branch: formData.role === 'admin' ? undefined : formData.branch.trim(),
+        year: formData.role === 'admin' ? undefined : Number(formData.year),
         role: formData.role,
         adminCode: formData.role === 'admin' ? formData.adminCode.trim() : undefined,
       });
@@ -120,39 +120,6 @@ function Register() {
         />
 
         <FormInput
-          label="Branch"
-          id="branch"
-          name="branch"
-          value={formData.branch}
-          onChange={handleChange}
-          placeholder="e.g. Computer Science"
-          error={fieldErrors.branch}
-          required
-        />
-
-        <FormInput
-          label="Year"
-          id="year"
-          name="year"
-          error={fieldErrors.year}
-          required
-        >
-          <select
-            id="year"
-            name="year"
-            value={formData.year}
-            onChange={handleChange}
-            className="form-group__input"
-          >
-            <option value="">Select year</option>
-            <option value="1">1st Year</option>
-            <option value="2">2nd Year</option>
-            <option value="3">3rd Year</option>
-            <option value="4">4th Year</option>
-          </select>
-        </FormInput>
-
-        <FormInput
           label="Role"
           id="role"
           name="role"
@@ -180,6 +147,43 @@ function Register() {
             error={fieldErrors.adminCode}
             required
           />
+        )}
+
+        {formData.role !== 'admin' && (
+          <>
+            <FormInput
+              label="Branch"
+              id="branch"
+              name="branch"
+              value={formData.branch}
+              onChange={handleChange}
+              placeholder="e.g. Computer Science"
+              error={fieldErrors.branch}
+              required
+            />
+
+            <FormInput
+              label="Year"
+              id="year"
+              name="year"
+              error={fieldErrors.year}
+              required
+            >
+              <select
+                id="year"
+                name="year"
+                value={formData.year}
+                onChange={handleChange}
+                className="form-group__input"
+              >
+                <option value="">Select year</option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+              </select>
+            </FormInput>
+          </>
         )}
 
         <FormInput

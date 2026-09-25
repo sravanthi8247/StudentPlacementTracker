@@ -35,14 +35,17 @@ const validateRegisterInput = (body) => {
   else if (password.length < 6) errors.push('Password must be at least 6 characters');
 
   if (!college?.trim()) errors.push('College is required');
-  if (!branch?.trim()) errors.push('Branch is required');
 
-  if (year === undefined || year === null || year === '') {
-    errors.push('Year is required');
-  } else {
-    const yearNum = Number(year);
-    if (Number.isNaN(yearNum) || yearNum < 1 || yearNum > 4) {
-      errors.push('Year must be a number between 1 and 4');
+  if (role !== 'admin') {
+    if (!branch?.trim()) errors.push('Branch is required');
+
+    if (year === undefined || year === null || year === '') {
+      errors.push('Year is required');
+    } else {
+      const yearNum = Number(year);
+      if (Number.isNaN(yearNum) || yearNum < 1 || yearNum > 4) {
+        errors.push('Year must be a number between 1 and 4');
+      }
     }
   }
 
@@ -99,8 +102,8 @@ export const register = async (req, res, next) => {
       email: email.toLowerCase().trim(),
       password,
       college: college.trim(),
-      branch: branch.trim(),
-      year: Number(year),
+      branch: branch?.trim() || undefined,
+      year: year !== undefined && year !== null && year !== '' ? Number(year) : undefined,
       role: role || 'student',
     });
 

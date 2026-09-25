@@ -48,15 +48,18 @@ export const validateRegisterForm = (formData) => {
   const emailError = validateEmail(formData.email);
   const passwordError = validatePassword(formData.password);
   const collegeError = validateRequired(formData.college, 'College');
-  const branchError = validateRequired(formData.branch, 'Branch');
-  const yearError = validateYear(formData.year);
 
   if (nameError) errors.name = nameError;
   if (emailError) errors.email = emailError;
   if (passwordError) errors.password = passwordError;
   if (collegeError) errors.college = collegeError;
-  if (branchError) errors.branch = branchError;
-  if (yearError) errors.year = yearError;
+
+  if (formData.role !== 'admin') {
+    const branchError = validateRequired(formData.branch, 'Branch');
+    const yearError = validateYear(formData.year);
+    if (branchError) errors.branch = branchError;
+    if (yearError) errors.year = yearError;
+  }
 
   if (formData.confirmPassword !== formData.password) {
     errors.confirmPassword = 'Passwords do not match';

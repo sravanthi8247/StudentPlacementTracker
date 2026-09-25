@@ -64,15 +64,19 @@ function Dashboard() {
                 <strong>{user.college}</strong>
               </div>
 
-              <div className="dashboard__detail">
-                <span>Branch</span>
-                <strong>{user.branch}</strong>
-              </div>
+              {user.role !== 'admin' && (
+                <>
+                  <div className="dashboard__detail">
+                    <span>Branch</span>
+                    <strong>{user.branch}</strong>
+                  </div>
 
-              <div className="dashboard__detail">
-                <span>Year</span>
-                <strong>{user.year}</strong>
-              </div>
+                  <div className="dashboard__detail">
+                    <span>Year</span>
+                    <strong>{user.year}</strong>
+                  </div>
+                </>
+              )}
 
               <div className="dashboard__detail">
                 <span>Role</span>
